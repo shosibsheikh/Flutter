@@ -1,0 +1,165 @@
+yaml file ma ya add karna ha
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  intl: ^0.19.0
+or ya commend run karni ha termainl ma (flutter pub get)
+
+main.dart
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Simple Form App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
+      home: const FormScreen(),
+    );
+  }
+}
+
+class FormScreen extends StatefulWidget {
+  const FormScreen({super.key});
+
+  @override
+  State<FormScreen> createState() => _FormScreenState();
+}
+
+class _FormScreenState extends State<FormScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  // Controllers
+  final TextEditingController nameCtrl = TextEditingController();
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController phoneCtrl = TextEditingController();
+  final TextEditingController dobCtrl = TextEditingController();
+
+  // Pick Date Function
+  Future<void> pickDOB() async {
+    DateTime? dob = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000),
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+    );
+
+    if (dob != null) {
+      dobCtrl.text = DateFormat('yMMMd').format(dob);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Simple Form")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              // Name
+              TextFormField(
+                controller: nameCtrl,
+                decoration: const InputDecoration(
+                  labelText: "Full Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => v!.isEmpty ? "Enter your name" : null,
+              ),
+              const SizedBox(height: 12),
+
+              // Email
+              TextFormField(
+                controller: emailCtrl,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                v!.contains("@") ? null : "Enter valid email",
+              ),
+              const SizedBox(height: 12),
+
+              // Phone
+              TextFormField(
+                controller: phoneCtrl,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "Phone Number",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                v!.length < 10 ? "Enter valid phone" : null,
+              ),
+              const SizedBox(height: 12),
+
+              // DOB
+              TextFormField(
+                controller: dobCtrl,
+                readOnly: true,
+                onTap: pickDOB,
+                decoration: const InputDecoration(
+                  labelText: "Date of Birth",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => v!.isEmpty ? "Select DOB" : null,
+              ),
+              const SizedBox(height: 20),
+
+              // Submit
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Form Submitted"),
+                          content: Text(
+                            "Name: ${nameCtrl.text}\n"
+                                "Email: ${emailCtrl.text}\n"
+                                "Phone: ${phoneCtrl.text}\n"
+                                "DOB: ${dobCtrl.text}",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("OK"),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    "SUBMIT",
+                    style: TextStyle(fontSize: 28),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
