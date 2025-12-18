@@ -7,81 +7,124 @@
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
 //
+//   // This widget is the root of your application.
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Flutter App',
+//       title: 'Flutter Demo',
 //       theme: ThemeData(
-//         // Apply your custom font globally
-//         fontFamily: 'Poppins',
-//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-//         useMaterial3: true,
+//         // This is the theme of your application.
+//         //
+//         // TRY THIS: Try running your application with "flutter run". You'll see
+//         // the application has a purple toolbar. Then, without quitting the app,
+//         // try changing the seedColor in the colorScheme below to Colors.green
+//         // and then invoke "hot reload" (save your changes or press the "hot
+//         // reload" button in a Flutter-supported IDE, or press "r" if you used
+//         // the command line to start the app).
+//         //
+//         // Notice that the counter didn't reset back to zero; the application
+//         // state is not lost during the reload. To reset the state, use hot
+//         // restart instead.
+//         //
+//         // This works for code too, not just values: Most code changes can be
+//         // tested with just a hot reload.
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
 //       ),
-//       home: const HomePage(),
+//       home: const MyHomePage(title: 'Flutter '),
 //     );
 //   }
 // }
 //
-// class HomePage extends StatefulWidget {
-//   const HomePage({super.key});
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({super.key, required this.title});
+//
+//   // This widget is the home page of your application. It is stateful, meaning
+//   // that it has a State object (defined below) that contains fields that affect
+//   // how it looks.
+//
+//   // This class is the configuration for the state. It holds the values (in this
+//   // case the title) provided by the parent (in this case the App widget) and
+//   // used by the build method of the State. Fields in a Widget subclass are
+//   // always marked "final".
+//
+//   final String title;
 //
 //   @override
-//   State<HomePage> createState() => _HomePageState();
+//   State<MyHomePage> createState() => _MyHomePageState();
 // }
 //
-// class _HomePageState extends State<HomePage> {
-//   // Colors List (Add or remove colors as you want)
-//   final List<Color> _colors = [
-//     Colors.deepPurple,
-//     Colors.amber,
-//     Colors.teal,
-//     Colors.cyanAccent,
-//   ];
+// class _MyHomePageState extends State<MyHomePage> {
+//   int _counter = 0;
 //
-//   int _currentIndex = 0;
-//
-//   void _toggleColor() {
+//   void _incrementCounter() {
 //     setState(() {
-//       _currentIndex = (_currentIndex + 1) % _colors.length;
+//       // This call to setState tells the Flutter framework that something has
+//       // changed in this State, which causes it to rerun the build method below
+//       // so that the display can reflect the updated values. If we changed
+//       // _counter without calling setState(), then the build method would not be
+//       // called again, and so nothing would appear to happen.
+//       _counter++;
 //     });
 //   }
 //
 //   @override
 //   Widget build(BuildContext context) {
+//     // This method is rerun every time setState is called, for instance as done
+//     // by the _incrementCounter method above.
+//     //
+//     // The Flutter framework has been optimized to make rerunning build methods
+//     // fast, so that you can just rebuild anything that needs updating rather
+//     // than having to individually change instances of widgets.
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: const Text("Flutter App"),
+//         // TRY THIS: Try changing the color here to a specific color (to
+//         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+//         // change color while the other colors stay the same.
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//         // Here we take the value from the MyHomePage object that was created by
+//         // the App.build method, and use it to set our appbar title.
+//         title: Text(widget.title),
 //       ),
 //       body: Center(
-//         child: Container(
-//           width: 200,
-//           height: 300,
-//           color: _colors[_currentIndex],
-//           child: const Center(
-//             child: Text(
-//               "Flutter App",
-//               style: TextStyle(
-//                 color: Colors.black87,
-//                 fontSize: 23,
-//                 fontWeight: FontWeight.w600,
-//                 fontStyle: FontStyle.italic,
-//                 letterSpacing: 0.5,
-//               ),
+//         // Center is a layout widget. It takes a single child and positions it
+//         // in the middle of the parent.
+//         child: Column(
+//           // Column is also a layout widget. It takes a list of children and
+//           // arranges them vertically. By default, it sizes itself to fit its
+//           // children horizontally, and tries to be as tall as its parent.
+//           //
+//           // Column has various properties to control how it sizes itself and
+//           // how it positions its children. Here we use mainAxisAlignment to
+//           // center the children vertically; the main axis here is the vertical
+//           // axis because Columns are vertical (the cross axis would be
+//           // horizontal).
+//           //
+//           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+//           // action in the IDE, or press "p" in the console), to see the
+//           // wireframe for each widget.
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             const Text('You have pushed the button '),
+//             Text(
+//               '$_counter',
+//               style: Theme.of(context).textTheme.headlineMedium,
 //             ),
-//           ),
+//           ],
 //         ),
 //       ),
-//       floatingActionButton: FloatingActionButton.extended(
-//         onPressed: _toggleColor,
-//         icon: const Icon(Icons.color_lens),
-//         label: const Text("Change Color"),
-//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _incrementCounter,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ), // This trailing comma makes auto-formatting nicer for build methods.
 //     );
 //   }
 // }
+//
+//
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,167 +133,144 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Simple Form App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const FormScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class FormScreen extends StatefulWidget {
+  const FormScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<FormScreen> createState() => _FormScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _FormScreenState extends State<FormScreen> {
+  final _formKey = GlobalKey<FormState>();
 
-  void _incrementCounter() {
-    setState(() {
-    });
+  // Controllers
+  final TextEditingController nameCtrl = TextEditingController();
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController phoneCtrl = TextEditingController();
+  final TextEditingController dobCtrl = TextEditingController();
+
+  // Pick Date Function
+  Future<void> pickDOB() async {
+    DateTime? dob = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000),
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+    );
+
+    if (dob != null) {
+      dobCtrl.text = DateFormat('yMMMd').format(dob);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: const Text("Simple Form")),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 11),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      // Container(
-                      //   margin: EdgeInsets.only(right: 11),
-                      //   width: 200,
-                      //   height: 300,
-                      //   color: Colors.green,
-                      //
-                      // ),
-                      Container(
-                        margin: const EdgeInsets.only(right: 11),
-                        width: 200,
-                        height: 300,
-                        color: Colors.greenAccent,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Green Box',
-                          style: TextStyle(color: Colors.brown, fontSize: 30, fontWeight: FontWeight.w700,fontStyle: FontStyle.italic),
-                        ),
-                      ),
+              // Name
+              TextFormField(
+                controller: nameCtrl,
+                decoration: const InputDecoration(
+                  labelText: "Full Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => v!.isEmpty ? "Enter your name" : null,
+              ),
+              const SizedBox(height: 12),
 
-                      Container(
-                        margin: EdgeInsets.only(right: 11),
-                        width: 200,
-                        height: 300,
-                        color: Colors.red,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'red Box',
-                          style: TextStyle(color: Colors.amber, fontSize: 30, fontWeight: FontWeight.w700,fontStyle: FontStyle.italic),
+              // Email
+              TextFormField(
+                controller: emailCtrl,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                v!.contains("@") ? null : "Enter valid email",
+              ),
+              const SizedBox(height: 12),
+
+              // Phone
+              TextFormField(
+                controller: phoneCtrl,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "Phone Number",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                v!.length < 10 ? "Enter valid phone" : null,
+              ),
+              const SizedBox(height: 12),
+
+              // DOB
+              TextFormField(
+                controller: dobCtrl,
+                readOnly: true,
+                onTap: pickDOB,
+                decoration: const InputDecoration(
+                  labelText: "Date of Birth",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => v!.isEmpty ? "Select DOB" : null,
+              ),
+              const SizedBox(height: 20),
+
+              // Submit
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Form Submitted"),
+                          content: Text(
+                            "Name: ${nameCtrl.text}\n"
+                                "Email: ${emailCtrl.text}\n"
+                                "Phone: ${phoneCtrl.text}\n"
+                                "DOB: ${dobCtrl.text}",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("OK"),
+                            ),
+                          ],
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 11),
-                        width: 200,
-                        height: 300,
-                        color: Colors.yellow,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'yellow Box',
-                          style: TextStyle(color: Colors.lightGreenAccent, fontSize: 30, fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 11),
-                        width: 200,
-                        height: 300,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 11),
-                        width: 200,
-                        height: 300,
-                        color: Colors.deepOrangeAccent,
-                      ),
-                    ],
+                      );
+                    }
+                  },
+                  child: const Text(
+                    "SUBMIT",
+                    style: TextStyle(fontSize: 28),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.blueAccent,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Blue Box',
-                  style: TextStyle(color: Colors.brown, fontSize: 30, fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.red,
-                child: const Text('Red Box',style: TextStyle(color: Colors.black12,fontSize: 30,fontWeight: FontWeight.w700),),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.purple,
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.grey,
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.lime,
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.brown,
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 11),
-                width: 200,
-                height: 200,
-                color: Colors.cyan,
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
